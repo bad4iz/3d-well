@@ -1,26 +1,51 @@
-import * as THREE from 'three';
+
+var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100);
+camera.position.set(20, 5, 30);
 
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+var light = new THREE.PointLight();
+light.position.set(0, 20, 50);
+scene.add(light);
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+var renderer = renderer = new THREE.WebGLRenderer({
+  antialias: true
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-camera.position.z = 5;
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+// controls.minPolarAngle = Math.PI / 2; //раскомментировать для ограничения
+// controls.maxPolarAngle = Math.PI / 2;
 
-var animate = function () {
-  requestAnimationFrame( animate );
+var geometry = new THREE.BoxGeometry(2,1,1);
+var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
+scene.add(mesh);
+scene.add(mesh);
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+var plane = new THREE.GridHelper(20, 40);
+scene.add(plane);
 
-  renderer.render( scene, camera );
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
 
 animate();
