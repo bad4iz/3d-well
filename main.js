@@ -33,7 +33,42 @@ scene.add(plane);
 
 
 
+function CustomSinCurve( scale ) {
 
+  THREE.Curve.call( this );
+
+  this.scale = ( scale === undefined ) ? 1 : scale;
+
+}
+
+CustomSinCurve.prototype = Object.create( THREE.Curve.prototype );
+CustomSinCurve.prototype.constructor = CustomSinCurve;
+
+CustomSinCurve.prototype.getPoint = function ( t ) {
+
+  var tx = t * 8 - 1.5;
+  var ty = Math.sin( 2 * Math.PI * t );
+  var tz = 0;
+
+  return new THREE.Vector3( tx, ty, tz ).multiplyScalar( this.scale );
+
+};
+
+const curve = new THREE.SplineCurve3([
+  new THREE.Vector3(0,0,0),
+  new THREE.Vector3(0,-1,0),
+  new THREE.Vector3(0,-4,2),
+  new THREE.Vector3(0,-10,1),
+  new THREE.Vector3(2,-15,0),
+  new THREE.Vector3(0,-20,0),
+]);
+
+
+var path = new CustomSinCurve( 10 );
+var geometry = new THREE.TubeGeometry( curve, 100, 0.1, 19, false );
+var material = new THREE.MeshBasicMaterial( { color: 0x000fff } );
+var mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
 
 
 
