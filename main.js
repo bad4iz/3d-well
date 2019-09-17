@@ -24,9 +24,9 @@ var geometry = new THREE.BoxGeometry(2,1,1);
 var mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
 scene.add(mesh);
 
-// var plane = new THREE.GridHelper(20, 40);
-// scene.add(plane);
-//
+var plane = new THREE.GridHelper(20, 40);
+scene.add(plane);
+
 
 
 
@@ -53,7 +53,9 @@ const geometrye = new THREE.BoxGeometry(width,height,0.1);
 var meshe = new THREE.Mesh( geometrye, material );
 
 meshe.rotation.x = 4.677;
+meshe.position.y = -20.677;
 meshe.position.z = -2.5;
+
 
 scene.add( meshe);
 
